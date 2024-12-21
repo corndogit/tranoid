@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 
-var is_dead = false
+signal died
+var has_died = false
 const MOVE_SPEED = 15000.0
 
 func _ready() -> void:
@@ -9,7 +10,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if is_dead:
+	if has_died:
 		return
 	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * MOVE_SPEED * delta
 	move_and_slide()
@@ -22,6 +23,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 
 
 func die():
-	is_dead = true
+	has_died = true
+	died.emit()
 	$AnimatedSprite2D.modulate = Color(1.0, 0.0, 0.0)
 	$AnimatedSprite2D.stop()
