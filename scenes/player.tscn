@@ -46,6 +46,6 @@ shape = SubResource("RectangleShape2D_bs2wn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wktd4")
-frame_progress = 0.076457
+frame_progress = 0.101181
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

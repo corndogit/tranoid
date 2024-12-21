@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var custom_sprite_frames: SpriteFrames = null
+@export var custom_sprite_frames: SpriteFrames
 
 
 func _ready() -> void:
