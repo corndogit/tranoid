@@ -1,16 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://dly8w1rtar7ou"]
+[gd_scene load_steps=13 format=3 uid="uid://dly8w1rtar7ou"]
 
 [ext_resource type="PackedScene" uid="uid://bcvl4vn1wthqq" path="res://scenes/player.tscn" id="1_ascw5"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="2_1lpaf"]
 [ext_resource type="PackedScene" uid="uid://c2d8kdkfgvfav" path="res://scenes/enemy.tscn" id="2_us6u0"]
 [ext_resource type="Texture2D" uid="uid://bopy86bewv2xs" path="res://assets/bg_segment.png" id="3_3e4fv"]
+[ext_resource type="AudioStream" uid="uid://b1s1swawk3l0" path="res://assets/sound/die.ogg" id="3_bvmn5"]
 [ext_resource type="SpriteFrames" uid="uid://bdn64t7agn7d5" path="res://resources/alien_blue_sprite_frames.tres" id="4_gmrjl"]
+[ext_resource type="AudioStream" uid="uid://dqk6wcy32u1bj" path="res://assets/sound/level.ogg" id="5_r0n8m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2y6s0"]
 size = Vector2(11332, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_akl8i"]
 size = Vector2(11332, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ns1g1"]
+size = Vector2(47, 503)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ra35s"]
 size = Vector2(20, 240)
@@ -22,25 +27,37 @@ size = Vector2(20, 241)
 
 [node name="Map" type="StaticBody2D" parent="."]
 script = ExtResource("2_1lpaf")
+scroll_speed = 155.0
 
-[node name="Measure000" type="Node2D" parent="Map"]
+[node name="Sounds" type="Node" parent="Map"]
 
-[node name="Background" type="Node2D" parent="Map/Measure000"]
+[node name="Music" type="AudioStreamPlayer" parent="Map/Sounds"]
+stream = ExtResource("5_r0n8m")
+autoplay = true
+
+[node name="Die" type="AudioStreamPlayer" parent="Map/Sounds"]
+stream = ExtResource("3_bvmn5")
+
+[node name="Measures" type="Node2D" parent="Map"]
+
+[node name="Measure000" type="Node2D" parent="Map/Measures"]
+
+[node name="Background" type="Node2D" parent="Map/Measures/Measure000"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect" type="TextureRect" parent="Map/Measure000/Background"]
+[node name="TextureRect" type="TextureRect" parent="Map/Measures/Measure000/Background"]
 offset_top = 20.0
 offset_right = 262.0
 offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Measure001" type="Node2D" parent="Map"]
+[node name="Measure001" type="Node2D" parent="Map/Measures"]
 
-[node name="Background" type="Node2D" parent="Map/Measure001"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure001"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure001/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure001/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -48,35 +65,35 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure001" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure001" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(202, 24)
 
-[node name="Enemy2" parent="Map/Measure001" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure001" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure001" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure001" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure001" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure001" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure001" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure001" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure001" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure001" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure001" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure001" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure002" type="Node2D" parent="Map"]
+[node name="Measure002" type="Node2D" parent="Map/Measures"]
 position = Vector2(196, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure002"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure002"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure002/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure002/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -84,31 +101,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure002" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure002" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure002" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure002" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure002" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure002" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure002" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure002" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure002" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure002" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure002" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure002" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure003" type="Node2D" parent="Map"]
+[node name="Measure003" type="Node2D" parent="Map/Measures"]
 position = Vector2(392, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure003"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure003"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure003/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure003/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -116,31 +133,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure003" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure003" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure003" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure003" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure003" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure003" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure003" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure003" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure003" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure003" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure003" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure003" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure004" type="Node2D" parent="Map"]
+[node name="Measure004" type="Node2D" parent="Map/Measures"]
 position = Vector2(588, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure004"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure004"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure004/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure004/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -148,39 +165,39 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(352, 24)
 
-[node name="Enemy8" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(376, 24)
 
-[node name="Enemy2" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure004" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure004" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure005" type="Node2D" parent="Map"]
+[node name="Measure005" type="Node2D" parent="Map/Measures"]
 position = Vector2(784, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure005"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure005"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure005/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure005/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -188,35 +205,35 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure005" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure005" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(202, 24)
 
-[node name="Enemy2" parent="Map/Measure005" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure005" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure005" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure005" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure005" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure005" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure005" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure005" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure005" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure005" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure005" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure005" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure006" type="Node2D" parent="Map"]
+[node name="Measure006" type="Node2D" parent="Map/Measures"]
 position = Vector2(980, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure006"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure006"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure006/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure006/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -224,31 +241,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure006" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure006" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure006" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure006" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure006" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure006" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure006" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure006" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure006" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure006" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure006" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure006" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure007" type="Node2D" parent="Map"]
+[node name="Measure007" type="Node2D" parent="Map/Measures"]
 position = Vector2(1176, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure007"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure007"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure007/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure007/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -256,31 +273,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure007" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure007" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure007" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure007" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure007" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure007" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure007" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure007" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure007" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure007" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure007" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure007" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure008" type="Node2D" parent="Map"]
+[node name="Measure008" type="Node2D" parent="Map/Measures"]
 position = Vector2(1372, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure008"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure008"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure008/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure008/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -288,43 +305,43 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy8" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(328, 49)
 
-[node name="Enemy11" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy11" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(340, 126)
 
-[node name="Enemy9" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 49)
 
-[node name="Enemy10" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy10" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 100)
 
-[node name="Enemy5" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure008" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure008" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure009" type="Node2D" parent="Map"]
+[node name="Measure009" type="Node2D" parent="Map/Measures"]
 position = Vector2(1568, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure009"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure009"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure009/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure009/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -332,46 +349,46 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(202, 24)
 
-[node name="Enemy2" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 202)
 
-[node name="Enemy3" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 position = Vector2(236, 202)
 
-[node name="Enemy4" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 position = Vector2(269, 202)
 
-[node name="Enemy5" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 position = Vector2(342, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(251, 24)
 
-[node name="Enemy9" parent="Map/Measure009" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure009" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(352, 24)
 
-[node name="Measure010" type="Node2D" parent="Map"]
+[node name="Measure010" type="Node2D" parent="Map/Measures"]
 position = Vector2(1764, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure010"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure010"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure010/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure010/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -379,31 +396,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure010" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure010" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure010" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure010" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure010" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure010" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure010" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure010" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure010" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure010" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure010" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure010" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure011" type="Node2D" parent="Map"]
+[node name="Measure011" type="Node2D" parent="Map/Measures"]
 position = Vector2(1960, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure011"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure011"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure011/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure011/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -411,42 +428,42 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy10" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy10" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 202)
 
-[node name="Enemy11" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy11" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 position = Vector2(342, 202)
 
-[node name="Enemy12" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy12" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 202)
 
-[node name="Enemy13" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy13" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy14" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy14" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 position = Vector2(236, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy15" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy15" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 position = Vector2(269, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(251, 24)
 
-[node name="Enemy9" parent="Map/Measure011" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure011" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(352, 24)
 
-[node name="Measure012" type="Node2D" parent="Map"]
+[node name="Measure012" type="Node2D" parent="Map/Measures"]
 position = Vector2(2156, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure012"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure012"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure012/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure012/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -454,37 +471,37 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy8" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(328, 49)
 
-[node name="Enemy5" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 49)
 
-[node name="Enemy6" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Enemy9" parent="Map/Measure012" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure012" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 100)
 
-[node name="Measure013" type="Node2D" parent="Map"]
+[node name="Measure013" type="Node2D" parent="Map/Measures"]
 position = Vector2(2352, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure013"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure013"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure013/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure013/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -492,42 +509,42 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 202)
 
-[node name="Enemy3" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 position = Vector2(236, 202)
 
-[node name="Enemy4" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 position = Vector2(269, 202)
 
-[node name="Enemy5" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 position = Vector2(342, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(251, 24)
 
-[node name="Enemy9" parent="Map/Measure013" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure013" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(352, 24)
 
-[node name="Measure014" type="Node2D" parent="Map"]
+[node name="Measure014" type="Node2D" parent="Map/Measures"]
 position = Vector2(2548, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure014"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure014"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure014/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure014/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -535,31 +552,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure014" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure014" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure014" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure014" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure014" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure014" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure014" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure014" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure014" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure014" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure014" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure014" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure015" type="Node2D" parent="Map"]
+[node name="Measure015" type="Node2D" parent="Map/Measures"]
 position = Vector2(2744, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure015"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure015"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure015/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure015/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -567,42 +584,42 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy10" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy10" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 202)
 
-[node name="Enemy11" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy11" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 position = Vector2(342, 202)
 
-[node name="Enemy12" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy12" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 202)
 
-[node name="Enemy13" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy13" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy14" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy14" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 position = Vector2(236, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy15" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy15" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 position = Vector2(269, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(251, 24)
 
-[node name="Enemy9" parent="Map/Measure015" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure015" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(352, 24)
 
-[node name="Measure016" type="Node2D" parent="Map"]
+[node name="Measure016" type="Node2D" parent="Map/Measures"]
 position = Vector2(2940, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure016"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure016"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure016/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure016/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -610,32 +627,32 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure016" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure016" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(375, 24)
 
-[node name="Enemy2" parent="Map/Measure016" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure016" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure016" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure016" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 74)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy4" parent="Map/Measure016" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure016" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure016" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure016" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure017" type="Node2D" parent="Map"]
+[node name="Measure017" type="Node2D" parent="Map/Measures"]
 position = Vector2(3136, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure017"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure017"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure017/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure017/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -643,42 +660,42 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(202, 24)
 
-[node name="Enemy2" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy5" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 151)
 
-[node name="Enemy7" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(251, 24)
 
-[node name="Enemy9" parent="Map/Measure017" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure017" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(352, 24)
 
-[node name="Measure018" type="Node2D" parent="Map"]
+[node name="Measure018" type="Node2D" parent="Map/Measures"]
 position = Vector2(3332, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure018"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure018"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure018/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure018/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -686,31 +703,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure018" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure018" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure018" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure018" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure018" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure018" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure018" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure018" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure018" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure018" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure018" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure018" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure019" type="Node2D" parent="Map"]
+[node name="Measure019" type="Node2D" parent="Map/Measures"]
 position = Vector2(3528, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure019"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure019"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure019/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure019/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -718,32 +735,32 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure019" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure019" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy3" parent="Map/Measure019" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure019" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 74)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure019" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure019" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure019" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure019" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 151)
 
-[node name="Enemy7" parent="Map/Measure019" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure019" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure020" type="Node2D" parent="Map"]
+[node name="Measure020" type="Node2D" parent="Map/Measures"]
 position = Vector2(3724, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure020"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure020"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure020/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure020/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -751,37 +768,37 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Enemy8" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(377, 49)
 
-[node name="Enemy9" parent="Map/Measure020" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure020" instance=ExtResource("2_us6u0")]
 position = Vector2(377, 100)
 
-[node name="Measure021" type="Node2D" parent="Map"]
+[node name="Measure021" type="Node2D" parent="Map/Measures"]
 position = Vector2(3920, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure021"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure021"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure021/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure021/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -789,29 +806,29 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure021" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure021" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 151)
 
-[node name="Enemy3" parent="Map/Measure021" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure021" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy5" parent="Map/Measure021" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure021" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 202)
 
-[node name="Enemy6" parent="Map/Measure021" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure021" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure021" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure021" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 202)
 
-[node name="Measure022" type="Node2D" parent="Map"]
+[node name="Measure022" type="Node2D" parent="Map/Measures"]
 position = Vector2(4116, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure022"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure022"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure022/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure022/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -819,27 +836,27 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure022" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure022" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 151)
 
-[node name="Enemy4" parent="Map/Measure022" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure022" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure022" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure022" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 151)
 
-[node name="Enemy6" parent="Map/Measure022" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure022" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure023" type="Node2D" parent="Map"]
+[node name="Measure023" type="Node2D" parent="Map/Measures"]
 position = Vector2(4312, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure023"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure023"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure023/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure023/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -847,41 +864,41 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy4" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 202)
 
-[node name="Enemy5" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 202)
 
-[node name="Enemy6" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(376, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy9" parent="Map/Measure023" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure023" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure024" type="Node2D" parent="Map"]
+[node name="Measure024" type="Node2D" parent="Map/Measures"]
 position = Vector2(4508, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure024"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure024"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure024/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure024/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -889,38 +906,38 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure024" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure024" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure024" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure024" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy4" parent="Map/Measure024" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure024" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure024" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure024" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure024" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure024" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 202)
 
-[node name="Enemy7" parent="Map/Measure024" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure024" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 100)
 
-[node name="Enemy9" parent="Map/Measure024" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure024" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 151)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure025" type="Node2D" parent="Map"]
+[node name="Measure025" type="Node2D" parent="Map/Measures"]
 position = Vector2(4704, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure025"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure025"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure025/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure025/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -928,35 +945,35 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure025" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure025" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(202, 24)
 
-[node name="Enemy2" parent="Map/Measure025" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure025" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy3" parent="Map/Measure025" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure025" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy5" parent="Map/Measure025" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure025" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure025" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure025" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 151)
 
-[node name="Enemy7" parent="Map/Measure025" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure025" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure026" type="Node2D" parent="Map"]
+[node name="Measure026" type="Node2D" parent="Map/Measures"]
 position = Vector2(4900, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure026"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure026"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure026/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure026/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -964,31 +981,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure026" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure026" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure026" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure026" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure026" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure026" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure026" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure026" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure026" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure026" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure026" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure026" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Measure027" type="Node2D" parent="Map"]
+[node name="Measure027" type="Node2D" parent="Map/Measures"]
 position = Vector2(5096, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure027"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure027"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure027/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure027/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -996,32 +1013,32 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure027" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure027" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy3" parent="Map/Measure027" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure027" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure027" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure027" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 176)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure027" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure027" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 151)
 
-[node name="Enemy7" parent="Map/Measure027" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure027" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure028" type="Node2D" parent="Map"]
+[node name="Measure028" type="Node2D" parent="Map/Measures"]
 position = Vector2(5292, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure028"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure028"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure028/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure028/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1029,37 +1046,37 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 49)
 
-[node name="Enemy4" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 49)
 
-[node name="Enemy5" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 49)
 
-[node name="Enemy6" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy7" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 100)
 
-[node name="Enemy8" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(377, 49)
 
-[node name="Enemy9" parent="Map/Measure028" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure028" instance=ExtResource("2_us6u0")]
 position = Vector2(377, 100)
 
-[node name="Measure029" type="Node2D" parent="Map"]
+[node name="Measure029" type="Node2D" parent="Map/Measures"]
 position = Vector2(5488, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure029"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure029"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure029/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure029/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1067,29 +1084,29 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure029" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure029" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 151)
 
-[node name="Enemy3" parent="Map/Measure029" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure029" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy5" parent="Map/Measure029" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure029" instance=ExtResource("2_us6u0")]
 position = Vector2(308, 202)
 
-[node name="Enemy6" parent="Map/Measure029" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure029" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure029" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure029" instance=ExtResource("2_us6u0")]
 position = Vector2(375, 202)
 
-[node name="Measure030" type="Node2D" parent="Map"]
+[node name="Measure030" type="Node2D" parent="Map/Measures"]
 position = Vector2(5684, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure030"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure030"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure030/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure030/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1097,31 +1114,31 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure030" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure030" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 151)
 
-[node name="Enemy4" parent="Map/Measure030" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure030" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 125)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure030" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure030" instance=ExtResource("2_us6u0")]
 position = Vector2(352, 151)
 
-[node name="Enemy6" parent="Map/Measure030" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure030" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure030" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure030" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(352, 24)
 
-[node name="Measure031" type="Node2D" parent="Map"]
+[node name="Measure031" type="Node2D" parent="Map/Measures"]
 position = Vector2(5880, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure031"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure031"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure031/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure031/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1129,41 +1146,41 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy4" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 202)
 
-[node name="Enemy5" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 202)
 
-[node name="Enemy6" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(376, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy9" parent="Map/Measure031" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure031" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure032" type="Node2D" parent="Map"]
+[node name="Measure032" type="Node2D" parent="Map/Measures"]
 position = Vector2(6076, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure032"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure032"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure032/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure032/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1171,42 +1188,42 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy4" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 202)
 
-[node name="Enemy7" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 100)
 
-[node name="Enemy8" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(351, 24)
 
-[node name="Enemy9" parent="Map/Measure032" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure032" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 151)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure033" type="Node2D" parent="Map"]
+[node name="Measure033" type="Node2D" parent="Map/Measures"]
 position = Vector2(6272, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure033"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure033"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure033/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure033/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1214,41 +1231,41 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy4" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 202)
 
-[node name="Enemy5" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 202)
 
-[node name="Enemy6" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(376, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy9" parent="Map/Measure033" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure033" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure034" type="Node2D" parent="Map"]
+[node name="Measure034" type="Node2D" parent="Map/Measures"]
 position = Vector2(6468, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure034"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure034"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure034/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure034/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1256,39 +1273,39 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy4" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 151)
 
-[node name="Enemy7" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 202)
 
-[node name="Enemy8" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(376, 151)
 
-[node name="Enemy9" parent="Map/Measure034" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure034" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 100)
 
-[node name="Measure035" type="Node2D" parent="Map"]
+[node name="Measure035" type="Node2D" parent="Map/Measures"]
 position = Vector2(6664, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure035"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure035"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure035/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure035/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1296,41 +1313,41 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 100)
 
-[node name="Enemy3" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy4" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 202)
 
-[node name="Enemy5" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 202)
 
-[node name="Enemy6" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy7" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy8" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(376, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy9" parent="Map/Measure035" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure035" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure036" type="Node2D" parent="Map"]
+[node name="Measure036" type="Node2D" parent="Map/Measures"]
 position = Vector2(6860, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure036"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure036"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure036/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure036/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1338,40 +1355,40 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 100)
 
-[node name="Enemy4" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 151)
 
-[node name="Enemy7" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 202)
 
-[node name="Enemy8" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(376, 100)
 
-[node name="Enemy9" parent="Map/Measure036" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure036" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure037" type="Node2D" parent="Map"]
+[node name="Measure037" type="Node2D" parent="Map/Measures"]
 position = Vector2(7056, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure037"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure037"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure037/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure037/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1379,41 +1396,41 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy2" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy3" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(251, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy4" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(276, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(227, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy6" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy6" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(302, 202)
 
-[node name="Enemy7" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy7" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(351, 100)
 
-[node name="Enemy8" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy8" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(376, 49)
 
-[node name="Enemy9" parent="Map/Measure037" instance=ExtResource("2_us6u0")]
+[node name="Enemy9" parent="Map/Measures/Measure037" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 151)
 
-[node name="Measure038" type="Node2D" parent="Map"]
+[node name="Measure038" type="Node2D" parent="Map/Measures"]
 position = Vector2(7252, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure038"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure038"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure038/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure038/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1421,23 +1438,23 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure038" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure038" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 151)
 
-[node name="Enemy2" parent="Map/Measure038" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure038" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy4" parent="Map/Measure038" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure038" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 100)
 
-[node name="Measure039" type="Node2D" parent="Map"]
+[node name="Measure039" type="Node2D" parent="Map/Measures"]
 position = Vector2(7448, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure039"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure039"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure039/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure039/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1445,25 +1462,25 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure039" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure039" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 177)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy4" parent="Map/Measure039" instance=ExtResource("2_us6u0")]
+[node name="Enemy4" parent="Map/Measures/Measure039" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 75)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Enemy5" parent="Map/Measure039" instance=ExtResource("2_us6u0")]
+[node name="Enemy5" parent="Map/Measures/Measure039" instance=ExtResource("2_us6u0")]
 position = Vector2(327, 126)
 custom_sprite_frames = ExtResource("4_gmrjl")
 
-[node name="Measure040" type="Node2D" parent="Map"]
+[node name="Measure040" type="Node2D" parent="Map/Measures"]
 position = Vector2(7644, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure040"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure040"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure040/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure040/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1471,32 +1488,32 @@ offset_bottom = 294.0
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="Map/Measure040" instance=ExtResource("2_us6u0")]
+[node name="Enemy" parent="Map/Measures/Measure040" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 202)
 
-[node name="Enemy2" parent="Map/Measure040" instance=ExtResource("2_us6u0")]
+[node name="Enemy2" parent="Map/Measures/Measure040" instance=ExtResource("2_us6u0")]
 position = Vector2(202, 49)
 
-[node name="Enemy3" parent="Map/Measure040" instance=ExtResource("2_us6u0")]
+[node name="Enemy3" parent="Map/Measures/Measure040" instance=ExtResource("2_us6u0")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(272, 24)
 
-[node name="Measure041" type="Node2D" parent="Map"]
+[node name="Measure041" type="Node2D" parent="Map/Measures"]
 position = Vector2(7840, 0)
 
-[node name="Background" type="Node2D" parent="Map/Measure041"]
+[node name="Background" type="Node2D" parent="Map/Measures/Measure041"]
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureRect3" type="TextureRect" parent="Map/Measure041/Background"]
+[node name="TextureRect3" type="TextureRect" parent="Map/Measures/Measure041/Background"]
 offset_left = 286.667
 offset_top = 20.0
 offset_right = 548.667
 offset_bottom = 294.0
-scale = Vector2(4, 1)
+scale = Vector2(2, 1)
 texture = ExtResource("3_3e4fv")
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect2" type="TextureRect" parent="Map/Measure041/Background"]
+[node name="TextureRect2" type="TextureRect" parent="Map/Measures/Measure041/Background"]
 offset_left = 261.333
 offset_top = 20.0
 offset_right = 523.333
@@ -1512,10 +1529,18 @@ shape = SubResource("RectangleShape2D_2y6s0")
 position = Vector2(5666, 230)
 shape = SubResource("RectangleShape2D_akl8i")
 
+[node name="WinZone" type="Area2D" parent="Map"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/WinZone"]
+position = Vector2(8237, 86)
+shape = SubResource("RectangleShape2D_ns1g1")
+
 [node name="Player" parent="." instance=ExtResource("1_ascw5")]
 position = Vector2(25, 102)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="LeftBoundary" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -1533,4 +1558,5 @@ collision_mask = 2
 position = Vector2(269, 120.5)
 shape = SubResource("RectangleShape2D_f1by2")
 
+[connection signal="body_entered" from="Map/WinZone" to="Map" method="_on_win_zone_body_entered"]
 [connection signal="died" from="Player" to="Map" method="_on_player_died"]

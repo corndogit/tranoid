@@ -6,7 +6,7 @@ var has_died = false
 const MOVE_SPEED = 15000.0
 
 func _ready() -> void:
-	$AnimatedSprite2D.play()
+	$AnimatedSprite2D.play("default")
 
 
 func _process(delta: float) -> void:
@@ -18,12 +18,12 @@ func _process(delta: float) -> void:
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
-		get_tree().call_group("enemies", "stop")
 		die()
 
 
 func die():
 	has_died = true
 	died.emit()
-	$AnimatedSprite2D.modulate = Color(1.0, 0.0, 0.0)
-	$AnimatedSprite2D.stop()
+	$AnimatedSprite2D.play("die")
+	$Collider.call_deferred("queue_free")
+	$Hitbox/CollisionShape2D.call_deferred("queue_free")
