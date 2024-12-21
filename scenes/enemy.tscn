@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2d8kdkfgvfav"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jhciu"]
+[ext_resource type="Texture2D" uid="uid://cy5g26u37luod" path="res://assets/sprites/alien.png" id="2_e0k13"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oban1"]
+size = Vector2(9, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1dsy"]
+atlas = ExtResource("2_e0k13")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5ibs"]
+atlas = ExtResource("2_e0k13")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iew4o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1dsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5ibs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_jhciu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 5)
+shape = SubResource("RectangleShape2D_oban1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iew4o")
+frame = 1
+frame_progress = 0.316146
