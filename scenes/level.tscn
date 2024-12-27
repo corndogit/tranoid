@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bcvl4vn1wthqq" path="res://scenes/player.tscn" id="1_ascw5"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="2_1lpaf"]
 [ext_resource type="PackedScene" uid="uid://c2d8kdkfgvfav" path="res://scenes/enemy.tscn" id="2_us6u0"]
-[ext_resource type="Texture2D" uid="uid://bopy86bewv2xs" path="res://assets/bg_segment.png" id="3_3e4fv"]
+[ext_resource type="Texture2D" uid="uid://bopy86bewv2xs" path="res://assets/sprites/bg_segment.png" id="3_3e4fv"]
 [ext_resource type="AudioStream" uid="uid://b1s1swawk3l0" path="res://assets/sound/die.ogg" id="3_bvmn5"]
 [ext_resource type="SpriteFrames" uid="uid://bdn64t7agn7d5" path="res://resources/alien_blue_sprite_frames.tres" id="4_gmrjl"]
 [ext_resource type="AudioStream" uid="uid://dqk6wcy32u1bj" path="res://assets/sound/level.ogg" id="5_r0n8m"]
