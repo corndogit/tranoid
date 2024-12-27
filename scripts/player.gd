@@ -3,16 +3,16 @@ extends CharacterBody2D
 
 signal died
 var has_died = false
-const MOVE_SPEED = 15000.0
+const MOVE_SPEED = 175.0
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("default")
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if has_died:
 		return
-	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * MOVE_SPEED * delta
+	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * MOVE_SPEED
 	move_and_slide()
 
 
