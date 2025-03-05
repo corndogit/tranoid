@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="TRANOID"
+config/version="0.1.0"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -18,6 +19,7 @@ boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://assets/sprites/ui/tran_icon.png"
+boot_splash/minimum_display_time=1500
 
 [autoload]
 
@@ -40,5 +42,6 @@ movie_writer/movie_file="C:/Users/Corndog/Videos/tranoid_recording.avi"
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 textures/lossless_compression/force_png=true
 environment/defaults/default_clear_color=Color(0.0117647, 0.0117647, 0.0117647, 1)
