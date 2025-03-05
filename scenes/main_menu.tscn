@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsknmhks0e4a5"]
+
+[ext_resource type="Texture2D" uid="uid://c6yvmnmmlh0sy" path="res://assets/sprites/ui/logo.png" id="1_ruwcb"]
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_vwg42"]
+[ext_resource type="Theme" uid="uid://b1ag333h42f7p" path="res://resources/ui_theme.tres" id="2_msxmd"]
+[ext_resource type="Texture2D" uid="uid://bjhxpycgywn2n" path="res://assets/sprites/ui/t+s.png" id="2_xsjq2"]
+[ext_resource type="PackedScene" uid="uid://cl5a8doe6ghca" path="res://scenes/ui/custom_menu_button.tscn" id="5_wxp7d"]
+[ext_resource type="AudioStream" uid="uid://b1s1swawk3l0" path="res://assets/sound/die.ogg" id="6_gr5sp"]
+[ext_resource type="AudioStream" uid="uid://b5vyv3q8uoj0f" path="res://assets/sound/intro.ogg" id="7_hhqtc"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_vwg42")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_msxmd")
+
+[node name="MenuVBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TSSeqFactory" type="AspectRatioContainer" parent="CenterContainer/MenuVBox"]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="CenterContainer/MenuVBox/TSSeqFactory"]
+layout_mode = 2
+texture = ExtResource("2_xsjq2")
+stretch_mode = 2
+
+[node name="Tranoid" type="AspectRatioContainer" parent="CenterContainer/MenuVBox"]
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="CenterContainer/MenuVBox/Tranoid"]
+layout_mode = 2
+texture = ExtResource("1_ruwcb")
+
+[node name="Labels" type="VBoxContainer" parent="CenterContainer/MenuVBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Copyright" type="Label" parent="CenterContainer/MenuVBox/Labels"]
+layout_mode = 2
+text = "© PSG WORKS"
+horizontal_alignment = 1
+
+[node name="HiScore" type="Label" parent="CenterContainer/MenuVBox/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.760784, 0.976471, 1)
+text = "HI 000000"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/MenuVBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MenuOptions" type="VBoxContainer" parent="CenterContainer/MenuVBox/MarginContainer"]
+layout_mode = 2
+
+[node name="PlaySelect" type="Label" parent="CenterContainer/MenuVBox/MarginContainer/MenuOptions"]
+layout_mode = 2
+text = "PLAY SELECT"
+horizontal_alignment = 1
+
+[node name="Player1" type="HBoxContainer" parent="CenterContainer/MenuVBox/MarginContainer/MenuOptions"]
+layout_mode = 2
+alignment = 1
+
+[node name="CustomMenuButton" parent="CenterContainer/MenuVBox/MarginContainer/MenuOptions/Player1" instance=ExtResource("5_wxp7d")]
+layout_mode = 2
+button_text = "1 PLAYER "
+
+[node name="Player2" type="HBoxContainer" parent="CenterContainer/MenuVBox/MarginContainer/MenuOptions"]
+layout_mode = 2
+alignment = 1
+
+[node name="CustomMenuButton" parent="CenterContainer/MenuVBox/MarginContainer/MenuOptions/Player2" instance=ExtResource("5_wxp7d")]
+layout_mode = 2
+button_text = "2 PLAYERS"
+
+[node name="DisabledSound" type="AudioStreamPlayer" parent="CenterContainer/MenuVBox/MarginContainer/MenuOptions/Player2"]
+stream = ExtResource("6_gr5sp")
+pitch_scale = 6.0
+
+[node name="PressStartLabel" type="Label" parent="CenterContainer/MenuVBox"]
+layout_mode = 2
+text = "PRESS START BUTTON"
+horizontal_alignment = 1
+
+[node name="ToggleVisibility" type="Timer" parent="CenterContainer/MenuVBox/PressStartLabel"]
+wait_time = 0.25
+autostart = true
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_hhqtc")
+
+[node name="IntroTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="clicked" from="CenterContainer/MenuVBox/MarginContainer/MenuOptions/Player1/CustomMenuButton" to="." method="_on_one_player_button_clicked"]
+[connection signal="clicked" from="CenterContainer/MenuVBox/MarginContainer/MenuOptions/Player2/CustomMenuButton" to="." method="_on_two_player_button_clicked"]
+[connection signal="timeout" from="CenterContainer/MenuVBox/PressStartLabel/ToggleVisibility" to="." method="_on_toggle_visibility_timeout"]
+[connection signal="timeout" from="IntroTimer" to="." method="_on_intro_timer_timeout"]

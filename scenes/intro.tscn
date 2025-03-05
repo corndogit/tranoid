@@ -13,6 +13,12 @@ script = ExtResource("1_1vnro")
 [node name="AutoProgressTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 320.0
+offset_bottom = 194.0
+color = Color(0, 0, 0, 1)
+
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 0
 offset_right = 320.0
@@ -44,14 +50,4 @@ text = "DODGE THE ADVANCE OF THE EVIL SPACE ALIENS AND APPROACH THE MISTERY OF T
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="PressStartLabel" type="Label" parent="AspectRatioContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "PRESS START BUTTON"
-horizontal_alignment = 1
-
-[node name="ToggleVisibility" type="Timer" parent="AspectRatioContainer/CenterContainer/VBoxContainer/PressStartLabel"]
-wait_time = 0.25
-autostart = true
-
 [connection signal="timeout" from="AutoProgressTimer" to="." method="_on_auto_progress_timer_timeout"]
-[connection signal="timeout" from="AspectRatioContainer/CenterContainer/VBoxContainer/PressStartLabel/ToggleVisibility" to="." method="_on_toggle_visibility_timeout"]

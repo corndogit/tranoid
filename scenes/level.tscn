@@ -1534,7 +1534,7 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/WinZone"]
-position = Vector2(8237, 86)
+position = Vector2(8155, 120)
 shape = SubResource("RectangleShape2D_ns1g1")
 
 [node name="Player" parent="." instance=ExtResource("1_ascw5")]

@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 signal died
 var has_died = false
-const MOVE_SPEED = 175.0
+const MOVE_SPEED = 150.0
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("default")

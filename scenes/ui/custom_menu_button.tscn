@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl5a8doe6ghca"]
+
+[ext_resource type="Theme" uid="uid://b1ag333h42f7p" path="res://resources/ui_theme.tres" id="1_c1w77"]
+[ext_resource type="Script" path="res://scripts/ui/custom_menu_button.gd" id="2_xfcwg"]
+[ext_resource type="Texture2D" uid="uid://ctixhxy2tkmxk" path="res://assets/sprites/ui/tran_icon.png" id="3_44yx7"]
+
+[node name="CustomMenuButton" type="HBoxContainer"]
+theme = ExtResource("1_c1w77")
+script = ExtResource("2_xfcwg")
+
+[node name="Icon" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="Icon"]
+layout_mode = 2
+texture = ExtResource("3_44yx7")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "1 PLAYER "
+
+[connection signal="button_down" from="Button" to="." method="_on_button_pressed"]
+[connection signal="focus_entered" from="Button" to="." method="_on_button_focus_entered"]
+[connection signal="focus_exited" from="Button" to="." method="_on_button_focus_exited"]

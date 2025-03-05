@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="TRANOID"
-run/main_scene="res://scenes/level.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://splash.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://assets/sprites/ui/tran_icon.png"
 
 [autoload]
 
-Dev="*res://scripts/autoload/config.gd"
+IntroSceneManager="*res://scripts/autoload/intro_scene_manager.gd"
 
 [display]
 
@@ -26,6 +30,10 @@ window/size/viewport_height=480
 window/stretch/mode="viewport"
 window/stretch/scale=2.0
 window/stretch/scale_mode="integer"
+
+[editor]
+
+movie_writer/movie_file="C:/Users/Corndog/Videos/tranoid_recording.avi"
 
 [rendering]
 

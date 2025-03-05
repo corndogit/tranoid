@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://etdlt5kfluuc" path="res://assets/sprites/tran.png" id="2_bxnq0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njpog"]
-size = Vector2(4, 19)
+size = Vector2(4, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bs2wn"]
-size = Vector2(8, 21)
+size = Vector2(8, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o5tj2"]
 atlas = ExtResource("2_bxnq0")
@@ -54,13 +54,13 @@ animations = [{
 script = ExtResource("1_k57ya")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_njpog")
 
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 4.5)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_bs2wn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
