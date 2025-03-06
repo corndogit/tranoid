@@ -38,7 +38,7 @@ jobs:
 
       - name: create release
         uses: ncipollo/release-action@v1.12.0
-        if: ${{ inputs.create_release == true }}
+        if: ${{ github.event_name == 'push' || inputs.create_release == true }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           generateReleaseNotes: true
