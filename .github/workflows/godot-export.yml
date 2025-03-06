@@ -1,9 +1,9 @@
-# Trigger on tag push matching pattern "v*" or manually via web UI
+# Trigger on tag push matching pattern "*.*.*" or manually via web UI
 on:
   workflow_dispatch:
   push:
     tags:
-      - "v*"
+      - "*.*.*"
 
 jobs:
   export_game:
