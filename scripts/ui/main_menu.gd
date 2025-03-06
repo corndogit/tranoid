@@ -18,7 +18,7 @@ func _ready() -> void:
 	if IntroSceneManager.has_intro_shown_once:
 		_on_intro_scene_finished()
 	else:
-		add_child(intro_scene.instantiate())
+		play_intro()
 	$MenuMusic.play()
 
 
@@ -27,6 +27,9 @@ func _process(_delta: float) -> void:
 		intro_timer.stop()
 		intro_timer.start(10.0)
 
+
+func play_intro() -> void:
+	add_child(intro_scene.instantiate())
 
 
 func _on_toggle_visibility_timeout() -> void:
@@ -54,4 +57,4 @@ func _on_intro_scene_finished() -> void:
 func _on_intro_timer_timeout() -> void:
 	one_player_option.get_node("Button").release_focus()
 	two_player_option.get_node("Button").release_focus()
-	add_child(intro_scene.instantiate())
+	play_intro()

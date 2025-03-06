@@ -74,7 +74,6 @@ func _set_story_label(text: String):
 	
 
 func _begin_logo_transition() -> void:
-	print("begin scroll")
 	logo_scrolling = true
 
 func _end_scene():
