@@ -11,6 +11,7 @@ offset_bottom = 480.0
 script = ExtResource("1_rss73")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
 offset_right = 320.0
 offset_bottom = 240.0
 theme = ExtResource("1_yktg8")
