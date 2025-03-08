@@ -8,6 +8,7 @@ extends Node
 @onready var one_player_option = menu_options.get_node("Player1/CustomMenuButton")
 @onready var two_player_option = menu_options.get_node("Player2/CustomMenuButton")
 @onready var intro_timer = $IntroTimer
+var is_music_muted = false
 
 var level_scene = preload("res://scenes/level.tscn")
 var intro_scene = preload("res://scenes/intro.tscn")
@@ -19,13 +20,16 @@ func _ready() -> void:
 		_on_intro_scene_finished()
 	else:
 		play_intro()
-	$MenuMusic.play()
+	_play_intro_music(IntroSceneManager.intro_music_is_playing)
 
 
 func _process(_delta: float) -> void:
 	if Input.is_anything_pressed():
 		intro_timer.stop()
 		intro_timer.start(10.0)
+	if Input.is_action_just_pressed("mute_intro"):
+		IntroSceneManager.intro_music_is_playing = !IntroSceneManager.intro_music_is_playing
+		_play_intro_music(IntroSceneManager.intro_music_is_playing)
 
 
 func play_intro() -> void:
@@ -58,3 +62,10 @@ func _on_intro_timer_timeout() -> void:
 	one_player_option.get_node("Button").release_focus()
 	two_player_option.get_node("Button").release_focus()
 	play_intro()
+
+
+func _play_intro_music(play: bool) -> void:
+	if play:
+		$MenuMusic.play()
+	else:
+		$MenuMusic.stop()
